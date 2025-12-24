@@ -29,10 +29,17 @@ class QuestionsController < ApplicationController
 
   # 　編集
   def edit
+    @question = Question.find(params[:id])
   end
 
   #   更新
   def update
+    @question = Question.find(params[:id])
+    if @question.update(question_params)
+      redirect_to @question
+    else
+      render "edit", status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -43,4 +50,3 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:title, :name, :content)
    end
 end
-
