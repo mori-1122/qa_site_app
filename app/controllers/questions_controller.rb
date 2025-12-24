@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
   # 質問一覧
   def index
+    @questions = Question.all
+    # p @questions
   end
 
   # 詳細
@@ -17,8 +19,11 @@ class QuestionsController < ApplicationController
   #   質問登録
   def create
     @question = Question.new(question_params)
-    @question.save
-    redirect_to @question
+    if @question.save
+      redirect_to @question
+    else
+      render "new", status: :unprocessable_entity
+    end
   end
 
 
