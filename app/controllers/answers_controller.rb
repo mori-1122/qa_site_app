@@ -7,6 +7,10 @@ class AnswersController < ApplicationController
 
 
   def destroy
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.find(params[:id])
+    @answer.destroy
+    redirect_to @question, status: :see_other
   end
 
   private
